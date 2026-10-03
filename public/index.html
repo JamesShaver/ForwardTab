@@ -39,6 +39,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Cloudflare Turnstile (bot protection for the signup form).
+         Rendered explicitly so the page can hold the widget ID and reset it between attempts. -->
+    <script>
+        window.turnstileReady = new Promise((resolve) => { window.onTurnstileLoad = resolve; });
+    </script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&amp;onload=onTurnstileLoad" async defer></script>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
 
@@ -85,22 +92,41 @@
         </p>
 
         <!-- Waitlist / Email Form -->
-        <div class="max-w-md mx-auto w-full mb-16">
-            <form id="signup-form" onsubmit="event.preventDefault(); alert('Thank you for joining the Trust Tab pilot update list!');" class="flex flex-col sm:flex-row gap-3">
-                <input 
-                    type="email" 
-                    required 
-                    placeholder="Enter your email address" 
-                    class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
-                />
-                <button 
-                    type="submit" 
-                    class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold shadow-lg shadow-brand-600/30 transition-all duration-200 whitespace-nowrap"
-                >
-                    Get Pilot Updates
-                </button>
+        <div id="updates" class="max-w-md mx-auto w-full mb-16">
+            <!-- Posts to the Cloudflare Pages Function; works without JS via redirect -->
+            <form id="signup-form" action="/api/subscribe" method="post" novalidate class="flex flex-col gap-3">
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <label for="signup-email" class="sr-only">Email address</label>
+                    <input 
+                        id="signup-email"
+                        name="email"
+                        type="email" 
+                        required 
+                        autocomplete="email"
+                        placeholder="Enter your email address" 
+                        class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+                    />
+                    <button 
+                        id="signup-button"
+                        type="submit" 
+                        class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 disabled:opacity-60 disabled:cursor-wait text-white font-semibold shadow-lg shadow-brand-600/30 transition-all duration-200 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+                    >
+                        Get Pilot Updates
+                    </button>
+                </div>
+
+                <!-- Honeypot: hidden from people, bots fill it in -->
+                <div aria-hidden="true" class="absolute -left-[9999px] w-px h-px overflow-hidden">
+                    <label for="signup-website">Leave this field empty</label>
+                    <input id="signup-website" name="website" type="text" tabindex="-1" autocomplete="off">
+                </div>
+
+                <!-- Turnstile widget — rendered by the script at the bottom of the page -->
+                <div id="turnstile-widget" class="flex justify-center"></div>
+
+                <p id="signup-message" role="status" aria-live="polite" class="hidden text-sm font-medium rounded-lg px-4 py-2.5"></p>
             </form>
-            <p class="text-xs text-slate-500 mt-3">No spam. We’ll only notify you about local pilot launches and launch milestones.</p>
+            <p class="text-xs text-slate-500 mt-3">No spam. We’ll only notify you about local pilot launches and launch milestones. You’ll get a confirmation email first.</p>
         </div>
 
         <!-- Feature Grid / Three Pillars -->
@@ -160,6 +186,100 @@
             <a href="https://trusttab.org" class="hover:text-slate-300 transition-colors">trusttab.org</a>
         </div>
     </footer>
+
+    <script>
+        (() => {
+            const form = document.getElementById('signup-form');
+            const email = document.getElementById('signup-email');
+            const button = document.getElementById('signup-button');
+            const message = document.getElementById('signup-message');
+            const buttonLabel = button.textContent.trim();
+
+            // Turnstile: explicit render so we keep the widget ID. Tokens are single-use,
+            // so the widget is reset after every submit attempt before another is allowed.
+            const TURNSTILE_SITEKEY = '0x4AAAAAAFNBVp8Pm_Ym2OVk';
+            const TURNSTILE_ACTION = 'signup';
+            let widgetId = null;
+
+            window.turnstileReady.then(() => {
+                widgetId = window.turnstile.render('#turnstile-widget', {
+                    sitekey: TURNSTILE_SITEKEY,
+                    action: TURNSTILE_ACTION,
+                    theme: 'dark',
+                    size: 'flexible',
+                    'expired-callback': () => window.turnstile.reset(widgetId),
+                });
+            });
+
+            const styles = {
+                ok: 'bg-brand-950/60 border border-brand-800/60 text-emerald-300',
+                error: 'bg-red-950/50 border border-red-900/60 text-red-300',
+                info: 'bg-slate-900 border border-slate-800 text-slate-300',
+            };
+
+            function show(text, kind = 'info') {
+                message.textContent = text;
+                message.className = `text-sm font-medium rounded-lg px-4 py-2.5 ${styles[kind]}`;
+            }
+
+            // Status from the no-JS redirect flow and the confirmation link
+            const statusText = {
+                pending:   ['Almost there — check your inbox to confirm your subscription.', 'ok'],
+                confirmed: ['You’re confirmed. We’ll email you when the Yamhill County pilot launches.', 'ok'],
+                expired:   ['That confirmation link is invalid or expired. Enter your email again for a new one.', 'error'],
+                invalid:   ['Enter a valid email address.', 'error'],
+                challenge: ['Verification failed. Reload the page and try again.', 'error'],
+                error:     ['Signup failed. Try again in a few minutes.', 'error'],
+            };
+            const status = new URLSearchParams(location.search).get('subscribe');
+            if (statusText[status]) {
+                show(...statusText[status]);
+                document.getElementById('updates').scrollIntoView({ block: 'center' });
+                history.replaceState(null, '', location.pathname); // tidy the URL
+            }
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                if (!email.checkValidity()) {
+                    show('Enter a valid email address.', 'error');
+                    email.focus();
+                    return;
+                }
+
+                const body = new FormData(form);
+                if (!body.get('cf-turnstile-response')) {
+                    show('Still running the verification check — try again in a moment.', 'error');
+                    return;
+                }
+
+                button.disabled = true;
+                button.textContent = 'Sending…';
+                show('Sending your signup…');
+
+                try {
+                    const res = await fetch(form.action, {
+                        method: 'POST',
+                        body,
+                        headers: { Accept: 'application/json' },
+                    });
+                    const data = await res.json();
+                    if (data.ok) {
+                        show('Almost there — check your inbox to confirm your subscription.', 'ok');
+                        form.reset();
+                    } else {
+                        show(data.message, 'error');
+                    }
+                } catch {
+                    show('Network error. Check your connection and try again.', 'error');
+                } finally {
+                    button.disabled = false;
+                    button.textContent = buttonLabel;
+                    if (widgetId !== null) window.turnstile.reset(widgetId); // the token just spent is dead
+                }
+            });
+        })();
+    </script>
 
 </body>
 </html>
