@@ -43,7 +43,10 @@ directory would be ignored. Routes are declared in `src/index.js`.
 | `CONFIRM_SECRET` | long random string, e.g. `openssl rand -hex 32` (secret) |
 | `SITE_URL` | `https://trusttab.org` (no trailing slash) |
 
-Redeploy after changing a value — bindings are read at deploy time.
+Adding, renaming or removing a binding means editing `wrangler.jsonc` and redeploying.
+Changing only a *value* does not: `lib/env.js` calls `await env.NAME.get()` per request, so
+the Worker reads the current one. Cloudflare does not document a propagation delay, so allow
+a short window after rotating before assuming the new value is live.
 
 ## Local dev
 ```bash

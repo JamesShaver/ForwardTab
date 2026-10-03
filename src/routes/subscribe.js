@@ -59,7 +59,9 @@ export async function handleSubscribe(request, env) {
 
     return respond(200, 'pending', 'Check your inbox to confirm.');
   } catch (err) {
+    // 503, not 502: this is our upstream (Mailgun) being unavailable or misconfigured,
+    // and a 502 is indistinguishable in the browser from the edge failing to reach us.
     console.error(err);
-    return respond(502, 'error', 'Subscription failed. Try again in a few minutes.');
+    return respond(503, 'error', 'Subscription failed. Try again in a few minutes.');
   }
 }
