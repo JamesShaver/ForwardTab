@@ -1,0 +1,26 @@
+{
+  // Static site + two API routes. public/ is served by the assets binding;
+  // requests with no matching file fall through to src/index.js.
+  "name": "trust-tab",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-01",
+
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+
+  // Values live in the account-level Secrets Store (store "default_secrets_store").
+  // Only the names are referenced here — no secret value is ever committed.
+  "secrets_store_secrets": [
+    { "binding": "MAILGUN_API_KEY",     "store_id": "5f3607153cf44382bf2913e24b6fc1d3", "secret_name": "MAILGUN_API_KEY" },
+    { "binding": "MAILGUN_DOMAIN",      "store_id": "5f3607153cf44382bf2913e24b6fc1d3", "secret_name": "MAILGUN_DOMAIN" },
+    { "binding": "MAILGUN_LIST",        "store_id": "5f3607153cf44382bf2913e24b6fc1d3", "secret_name": "MAILGUN_LIST" },
+    { "binding": "MAILGUN_FROM",        "store_id": "5f3607153cf44382bf2913e24b6fc1d3", "secret_name": "MAILGUN_FROM" },
+    { "binding": "MAILGUN_REGION",      "store_id": "5f3607153cf44382bf2913e24b6fc1d3", "secret_name": "MAILGUN_REGION" },
+    { "binding": "TURNSTILE_SECRET",    "store_id": "5f3607153cf44382bf2913e24b6fc1d3", "secret_name": "TURNSTILE_SECRET" },
+    { "binding": "TURNSTILE_HOSTNAMES", "store_id": "5f3607153cf44382bf2913e24b6fc1d3", "secret_name": "TURNSTILE_HOSTNAMES" },
+    { "binding": "CONFIRM_SECRET",      "store_id": "5f3607153cf44382bf2913e24b6fc1d3", "secret_name": "CONFIRM_SECRET" },
+    { "binding": "SITE_URL",            "store_id": "5f3607153cf44382bf2913e24b6fc1d3", "secret_name": "SITE_URL" }
+  ]
+}

@@ -1,6 +1,18 @@
-# Cloudflare Pages + Mailgun subscribe form (double opt-in)
+# Cloudflare Worker + Mailgun subscribe form (double opt-in)
 
-GitHub repo → Cloudflare Pages (static `public/`) + Pages Functions (`functions/api/*`).
+GitHub repo → Cloudflare Worker `trust-tab`, deployed automatically on push to `main`.
+
+```
+wrangler.jsonc        Worker config: assets binding + Secrets Store bindings
+public/               static site, served by the ASSETS binding
+src/index.js          entrypoint; routes /api/* and falls through to ASSETS
+src/routes/*.js       the two API handlers
+lib/mailgun.js        Mailgun, Turnstile siteverify, signed tokens
+lib/env.js            resolves plain vars and Secrets Store bindings alike
+```
+
+This is a Worker with static assets, **not** a Pages project — a `functions/`
+directory would be ignored. Routes are declared in `src/index.js`.
 
 ## Flow
 1. Form POSTs to `/api/subscribe` (Turnstile + honeypot checked).
@@ -10,11 +22,14 @@ GitHub repo → Cloudflare Pages (static `public/`) + Pages Functions (`function
 ## Setup
 1. **Mailgun**: verify a sending domain, then create a mailing list (e.g. `updates@mg.trusttab.org`) under Send → Mailing lists.
 2. **Turnstile**: widget already created — sitekey `0x4AAAAAAFNBVp8Pm_Ym2OVk`, embedded in `public/index.html` with action `signup`. Make sure the widget's domain list in the dashboard covers every hostname you serve from (plus `localhost` / `127.0.0.1` for local dev), then copy its secret into `TURNSTILE_SECRET`.
-3. **Cloudflare Pages**: Create project → Connect to Git → pick this repo.
-   - Framework preset: None
-   - Build command: (blank)
-   - Build output directory: `public`
-4. **Environment variables** (Settings → Variables and Secrets; mark keys as secrets):
+3. **Worker**: `trust-tab`, custom domain `trusttab.org`, connected to this repo. Pushing to `main` builds and deploys it. The assets directory and all bindings come from `wrangler.jsonc`, not the dashboard.
+4. **Configuration** lives in the account-level **Secrets Store** (store `default_secrets_store`, id `5f3607153cf44382bf2913e24b6fc1d3`), each entry scoped to `workers` and bound by name in `wrangler.jsonc`. Add or rotate a value with:
+
+   ```bash
+   wrangler secrets-store secret create <store-id> --name NAME --scopes workers --remote
+   ```
+
+   All nine must be present — the handlers refuse the request and log the missing names if any is absent.
 
 | Name | Example |
 |---|---|
@@ -28,14 +43,17 @@ GitHub repo → Cloudflare Pages (static `public/`) + Pages Functions (`function
 | `CONFIRM_SECRET` | long random string, e.g. `openssl rand -hex 32` (secret) |
 | `SITE_URL` | `https://trusttab.org` (no trailing slash) |
 
-Redeploy after adding variables.
+Redeploy after changing a value — bindings are read at deploy time.
 
 ## Local dev
 ```bash
-npm i -g wrangler
-# put the vars above in .dev.vars (KEY=value per line, gitignored)
-wrangler pages dev public
+wrangler dev            # reads wrangler.jsonc; serves public/ and /api/*
 ```
+The Secrets Store is not available locally, so every value resolves to undefined and
+both endpoints return 503 by design. To exercise them, put plain values in `.dev.vars`
+(`KEY=value` per line, gitignored) — `lib/env.js` accepts plain strings and Secrets
+Store bindings interchangeably.
+
 Turnstile test keys for local: site `1x00000000000000000000AA`, secret `1x0000000000000000000000000000000AA`.
 Set `TURNSTILE_HOSTNAMES=localhost,127.0.0.1` in `.dev.vars` and swap `TURNSTILE_SITEKEY` in `public/index.html` to the test site key while developing locally.
 
