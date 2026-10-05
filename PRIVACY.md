@@ -7,7 +7,7 @@ to the HTML — the two are not generated from each other, so they drift unless 
 Headings below match the `<section>` blocks in the HTML one-for-one.
 
 Not legal advice. The text describes what the code actually does; whether that is *sufficient*
-for an Oregon 501(c)(3) handling subscriber data is a question for a lawyer.
+for an Oregon nonprofit handling subscriber data is a question for a lawyer.
 
 ---
 
@@ -15,7 +15,7 @@ Last updated 4 October 2026
 
 ## Who we are
 
-Trust Tab is an Oregon 501(c)(3) non-profit organization. This policy covers **trusttab.org**,
+Trust Tab is an Oregon nonprofit organization. This policy covers **trusttab.org**,
 our pre-launch website. It describes the information that site collects and who it is shared
 with. Questions can go to info@trusttab.org.
 
@@ -63,8 +63,8 @@ Operating this site means a few third parties necessarily receive some data:
   visible to the host serving the page.
 - **Mailgun** — stores our mailing list and delivers our email. Your address is held there once
   you sign up.
-- **Google Fonts and the Tailwind CSS CDN** — the page loads fonts and styling from these
-  services, so loading the page discloses your IP address to them even if you never use the form.
+- **Google Fonts** — serves the typefaces this site uses, so loading a page discloses your IP
+  address to Google even if you never use the form.
 
 ## Your choices
 
@@ -89,9 +89,9 @@ Points where I wrote from the code rather than from your intent — worth a deci
 2. **Jurisdiction and rights.** Nothing is claimed about GDPR, CCPA, or state privacy law, and no
    legal bases for processing are asserted. If you expect EU or California subscribers, this
    likely needs more.
-3. **Google Fonts and the Tailwind CDN.** Disclosed because the page genuinely contacts them. If
-   you self-host both — which would also silence the Tailwind production warning in the browser
-   console — that bullet can be deleted outright.
+3. **Google Fonts.** Disclosed because the page genuinely contacts it. The Tailwind CDN was
+   removed in the October 2026 redesign. If you self-host the fonts, that bullet can be deleted
+   outright.
 4. **Children's data.** No COPPA statement. Add one if under-13 signups are plausible.
 5. **Contact address.** Uses `info@trusttab.org`, taken from the site footer. Change it if
    privacy requests should go somewhere else.

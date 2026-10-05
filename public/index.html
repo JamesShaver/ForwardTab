@@ -1,44 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trust Tab — Coming Soon | Digital Escrow for Food Dignity</title>
-    <meta name="description" content="Trust Tab is an Oregon 501(c)(3) non-profit platform operating a digital escrow clearinghouse that connects public donations and corporate sponsors with local independent restaurants.">
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#ecfdf5',
-                            100: '#d1fae5',
-                            500: '#10b981',
-                            600: '#059669',
-                            700: '#047857',
-                            800: '#065f46',
-                            900: '#064e3b',
-                            950: '#022c22',
-                        },
-                        amberAccent: {
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Trust Tab | Prepaid meals at local restaurants</title>
+    <meta name="description" content="Trust Tab is an Oregon nonprofit that funds prepaid meals at independent local restaurants, paid for by community donations and business sponsors. Our first pilot is in Yamhill County.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
 
     <!-- Cloudflare Turnstile (bot protection for the signup form).
          Rendered explicitly so the page can hold the widget ID and reset it between attempts. -->
@@ -47,145 +18,217 @@
     </script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&amp;onload=onTurnstileLoad" async defer></script>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- Background Gradient Overlay -->
-    <div class="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-950/40 via-slate-950 to-slate-950 -z-10 pointer-events-none"></div>
-
-    <!-- Navigation Header -->
-    <header class="w-full max-w-7xl mx-auto px-6 py-8 flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-amberAccent-500 flex items-center justify-center shadow-lg shadow-brand-500/20">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                </svg>
-            </div>
-            <span class="text-2xl font-bold tracking-tight text-white">Trust<span class="text-brand-500">Tab</span></span>
-        </div>
-        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs font-semibold text-emerald-400">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>Oregon 501(c)(3) Non-Profit</span>
+    <header class="site-header">
+        <div class="wrap">
+            <a class="wordmark" href="/">Trust Tab</a>
+            <nav class="site-nav" aria-label="Main">
+                <a href="#mission">Mission</a>
+                <a href="#how-it-works">How it works</a>
+                <a href="#pilot">Pilot</a>
+                <a href="#contact">Contact</a>
+            </nav>
         </div>
     </header>
 
-    <!-- Main Hero Section -->
-    <main class="w-full max-w-5xl mx-auto px-6 py-12 flex-grow flex flex-col justify-center text-center">
-        
-        <!-- Status Badge -->
-        <div class="mx-auto mb-6 inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 backdrop-blur-md">
-            <span class="text-xs font-medium text-slate-300">Launching Yamhill County Pilot 2026</span>
-            <span class="text-slate-600">•</span>
-            <a href="#about" class="text-xs font-semibold text-brand-500 hover:text-brand-400 transition-colors">Learn More &rarr;</a>
-        </div>
+    <main id="main">
 
-        <!-- Headline -->
-        <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-            Eliminating Food Insecurity,<br />
-            <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-500 via-teal-400 to-amberAccent-400">
-                One Meal at a Time.
-            </span>
-        </h1>
-
-        <!-- Subheading -->
-        <p class="max-w-2xl mx-auto text-lg sm:text-xl text-slate-400 font-normal mb-10 leading-relaxed">
-            Trust Tab is a 501(c)(3) digital escrow platform that connects public generosity and corporate CSR sponsorships with local independent restaurants to fund pre-paid meals for neighbors in need—with zero intake and full dignity.
-        </p>
-
-        <!-- Waitlist / Email Form -->
-        <div id="updates" class="max-w-md mx-auto w-full mb-16">
-            <!-- Posts to the Cloudflare Pages Function; works without JS via redirect -->
-            <form id="signup-form" action="/api/subscribe" method="post" novalidate class="flex flex-col gap-3">
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <label for="signup-email" class="sr-only">Email address</label>
-                    <input 
-                        id="signup-email"
-                        name="email"
-                        type="email" 
-                        required 
-                        autocomplete="email"
-                        placeholder="Enter your email address" 
-                        class="w-full px-4 py-3.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
-                    />
-                    <button 
-                        id="signup-button"
-                        type="submit" 
-                        class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 disabled:opacity-60 disabled:cursor-wait text-white font-semibold shadow-lg shadow-brand-600/30 transition-all duration-200 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-                    >
-                        Get Pilot Updates
-                    </button>
+        <section class="section intro">
+            <div class="wrap">
+                <div>
+                    <p class="eyebrow">Yamhill County pilot, 2026</p>
+                    <h1>A meal at a neighborhood restaurant, already paid for.</h1>
+                    <p class="lede measure">
+                        Trust Tab is an Oregon nonprofit that funds prepaid meals at independent local restaurants.
+                        Donations from the community and sponsorships from local businesses pay for the meals.
+                        Anyone who needs one can take a ticket from the board at the counter. There are no forms to fill out and no questions asked.
+                    </p>
+                    <p class="measure">
+                        We are preparing our first pilot in Yamhill County and are not yet accepting donations.
+                    </p>
                 </div>
 
-                <!-- Honeypot: hidden from people, bots fill it in -->
-                <div aria-hidden="true" class="absolute -left-[9999px] w-px h-px overflow-hidden">
-                    <label for="signup-website">Leave this field empty</label>
-                    <input id="signup-website" name="website" type="text" tabindex="-1" autocomplete="off">
+                <div id="updates" class="signup">
+                    <h2>Follow the pilot</h2>
+                    <p>We send occasional updates on the pilot launch and participating restaurants.</p>
+
+                    <!-- Posts to /api/subscribe; works without JS via redirect -->
+                    <form id="signup-form" action="/api/subscribe" method="post" novalidate>
+                        <label for="signup-email">Email address</label>
+                        <input id="signup-email" name="email" type="email" required autocomplete="email">
+
+                        <!-- Honeypot: hidden from people, bots fill it in -->
+                        <div aria-hidden="true" class="honeypot">
+                            <label for="signup-website">Leave this field empty</label>
+                            <input id="signup-website" name="website" type="text" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <!-- Turnstile widget, rendered by the script at the bottom of the page -->
+                        <div id="turnstile-widget"></div>
+
+                        <button id="signup-button" class="button" type="submit">Sign up for updates</button>
+
+                        <p id="signup-message" role="status" aria-live="polite" class="notice" hidden></p>
+                    </form>
+                    <p class="fine">
+                        We will email you a link to confirm first. You can unsubscribe at any time.
+                        See our <a href="/privacy">privacy policy</a>.
+                    </p>
                 </div>
-
-                <!-- Turnstile widget — rendered by the script at the bottom of the page -->
-                <div id="turnstile-widget" class="flex justify-center"></div>
-
-                <p id="signup-message" role="status" aria-live="polite" class="hidden text-sm font-medium rounded-lg px-4 py-2.5"></p>
-            </form>
-            <p class="text-xs text-slate-500 mt-3">No spam. We’ll only notify you about local pilot launches and launch milestones. You’ll get a confirmation email first.</p>
-        </div>
-
-        <!-- Feature Grid / Three Pillars -->
-        <div id="about" class="grid md:grid-cols-3 gap-6 text-left border-t border-slate-800/80 pt-16">
-            
-            <!-- Pillar 1 -->
-            <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800/80 backdrop-blur-sm">
-                <div class="w-10 h-10 rounded-lg bg-brand-950 border border-brand-800/50 flex items-center justify-center text-brand-400 mb-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold text-white mb-2">100% Tax Deductible</h3>
-                <p class="text-sm text-slate-400 leading-relaxed">
-                    Patron micro-donations and corporate CSR sponsorships flow directly into a firewalled 501(c)(3) central escrow account with automated tax receipting.
-                </p>
             </div>
+        </section>
 
-            <!-- Pillar 2 -->
-            <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800/80 backdrop-blur-sm">
-                <div class="w-10 h-10 rounded-lg bg-amberAccent-500/10 border border-amberAccent-500/20 flex items-center justify-center text-amberAccent-400 mb-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V11m0 4h4m-4-8h4m-4-4h4"></path>
-                    </svg>
+        <section id="mission" class="section section--alt">
+            <div class="wrap split">
+                <div>
+                    <p class="eyebrow">Our mission</p>
+                    <h2>No one in our community should go without a meal.</h2>
                 </div>
-                <h3 class="text-lg font-bold text-white mb-2">Fair Market Value</h3>
-                <p class="text-sm text-slate-400 leading-relaxed">
-                    Participating local restaurants receive automated Stripe Connect ACH transfers at 100% full menu price, supporting local small businesses.
-                </p>
-            </div>
-
-            <!-- Pillar 3 -->
-            <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800/80 backdrop-blur-sm">
-                <div class="w-10 h-10 rounded-lg bg-teal-950 border border-teal-800/50 flex items-center justify-center text-teal-400 mb-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                    </svg>
+                <div class="measure">
+                    <p>
+                        Many people who are short on food never use the help that exists, because asking for it means
+                        paperwork, eligibility checks, or being seen in line. Trust Tab removes those steps. A prepaid meal
+                        ticket works like any other order at the counter.
+                    </p>
+                    <p>
+                        The same model keeps money in the local economy. Every meal is bought from an independent restaurant
+                        at its full menu price, so supporting neighbors also supports the small businesses that serve them.
+                    </p>
                 </div>
-                <h3 class="text-lg font-bold text-white mb-2">Zero-Intake Dignity</h3>
-                <p class="text-sm text-slate-400 leading-relaxed">
-                    Meal recipients claim physical tickets from counter boards with no paperwork, qualifying questions, or stigma—just a warm meal served with respect.
-                </p>
             </div>
+        </section>
 
-        </div>
+        <section id="how-it-works" class="section">
+            <div class="wrap">
+                <p class="eyebrow">How it works</p>
+                <h2>Three parties, one ticket.</h2>
+                <ol class="steps">
+                    <li>
+                        <h3>The community funds meals</h3>
+                        <p>
+                            Individuals give small amounts and local businesses sponsor meals. Funds are held in a
+                            dedicated nonprofit account and used only to pay for meals.
+                        </p>
+                    </li>
+                    <li>
+                        <h3>Restaurants post tickets</h3>
+                        <p>
+                            Participating restaurants display prepaid meal tickets on a board at the counter. Anyone can
+                            take one and order, with no proof of need required.
+                        </p>
+                    </li>
+                    <li>
+                        <h3>Restaurants are paid in full</h3>
+                        <p>
+                            When a ticket is redeemed, Trust Tab pays the restaurant the full menu price by direct bank
+                            transfer. Donors receive a receipt for their records.
+                        </p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="section section--alt">
+            <div class="wrap split">
+                <div>
+                    <p class="eyebrow">Our commitments</p>
+                    <h2>What we hold ourselves to.</h2>
+                </div>
+                <ul class="commitments measure">
+                    <li>
+                        <h3>Dignity first</h3>
+                        <p>No intake forms, no qualifying questions, and nothing that marks a meal as charity.</p>
+                    </li>
+                    <li>
+                        <h3>Donations go to meals</h3>
+                        <p>Donated funds are kept separate from operating funds and are spent only on meals served.</p>
+                    </li>
+                    <li>
+                        <h3>Fair pay for restaurants</h3>
+                        <p>Restaurants receive full menu price for every meal, not a discounted rate.</p>
+                    </li>
+                    <li>
+                        <h3>Open books</h3>
+                        <p>We will publish our financial filings once they are available.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="pilot" class="section">
+            <div class="wrap">
+                <p class="eyebrow">Yamhill County pilot</p>
+                <h2>Help us launch in 2026.</h2>
+                <p class="lede measure">
+                    Our first program will run in Yamhill County, Oregon. We are looking for partners to take part from the start.
+                </p>
+                <div class="roles">
+                    <div class="role">
+                        <h3>Restaurants</h3>
+                        <p>Independent restaurants in Yamhill County interested in hosting a meal ticket board.</p>
+                    </div>
+                    <div class="role">
+                        <h3>Business sponsors</h3>
+                        <p>Local employers and businesses who want to fund meals in the communities they serve.</p>
+                    </div>
+                    <div class="role">
+                        <h3>Community partners</h3>
+                        <p>Food banks, churches, schools, and service groups who can help us reach neighbors.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section section--alt">
+            <div class="wrap split">
+                <div>
+                    <p class="eyebrow">Contact</p>
+                    <h2>Get in touch.</h2>
+                </div>
+                <dl class="contact-list measure">
+                    <div>
+                        <dt>General inquiries</dt>
+                        <dd><a href="mailto:info@trusttab.org">info@trusttab.org</a></dd>
+                    </div>
+                    <div>
+                        <dt>Restaurants and sponsors</dt>
+                        <dd>Write to <a href="mailto:info@trusttab.org?subject=Pilot%20partnership">info@trusttab.org</a> with "Pilot partnership" in the subject line.</dd>
+                    </div>
+                    <div>
+                        <dt>Mailing address</dt>
+                        <dd>5441 S Macadam Ave, Ste R<br>Portland, OR 97239</dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="w-full max-w-7xl mx-auto px-6 py-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-        <div>
-            &copy; 2026 Trust Tab. Oregon 501(c)(3) Non-Profit Organization. All rights reserved.
-        </div>
-        <div class="flex items-center space-x-6">
-            <a href="mailto:info@trusttab.org" class="hover:text-slate-300 transition-colors">Contact Us</a>
-            <span>•</span>
-            <a href="/privacy" class="hover:text-slate-300 transition-colors">Privacy Policy</a>
-            <span>•</span>
-            <a href="https://trusttab.org" class="hover:text-slate-300 transition-colors">trusttab.org</a>
+    <footer class="site-footer">
+        <div class="wrap">
+            <div>
+                <a class="wordmark" href="/">Trust Tab</a>
+                <p>An Oregon nonprofit corporation.</p>
+            </div>
+            <div>
+                <h2>Contact</h2>
+                <address>
+                    5441 S Macadam Ave, Ste R<br>
+                    Portland, OR 97239<br>
+                    <a href="mailto:info@trusttab.org">info@trusttab.org</a>
+                </address>
+            </div>
+            <div>
+                <h2>Site</h2>
+                <ul>
+                    <li><a href="#mission">Mission</a></li>
+                    <li><a href="#pilot">Pilot</a></li>
+                    <li><a href="/privacy">Privacy policy</a></li>
+                </ul>
+            </div>
+            <p class="legal">&copy; 2026 Trust Tab. All rights reserved.</p>
         </div>
     </footer>
 
@@ -207,28 +250,23 @@
                 widgetId = window.turnstile.render('#turnstile-widget', {
                     sitekey: TURNSTILE_SITEKEY,
                     action: TURNSTILE_ACTION,
-                    theme: 'dark',
+                    theme: 'light',
                     size: 'flexible',
                     'expired-callback': () => window.turnstile.reset(widgetId),
                 });
             });
 
-            const styles = {
-                ok: 'bg-brand-950/60 border border-brand-800/60 text-emerald-300',
-                error: 'bg-red-950/50 border border-red-900/60 text-red-300',
-                info: 'bg-slate-900 border border-slate-800 text-slate-300',
-            };
-
             function show(text, kind = 'info') {
                 message.textContent = text;
-                message.className = `text-sm font-medium rounded-lg px-4 py-2.5 ${styles[kind]}`;
+                message.className = `notice notice--${kind}`;
+                message.hidden = false;
             }
 
             // Status from the no-JS redirect flow and the confirmation link
             const statusText = {
-                pending:   ['Almost there — check your inbox to confirm your subscription.', 'ok'],
-                confirmed: ['You’re confirmed. We’ll email you when the Yamhill County pilot launches.', 'ok'],
-                expired:   ['That confirmation link is invalid or expired. Enter your email again for a new one.', 'error'],
+                pending:   ['Almost there. Check your inbox to confirm your subscription.', 'ok'],
+                confirmed: ['You are confirmed. We will email you when the Yamhill County pilot launches.', 'ok'],
+                expired:   ['That confirmation link is invalid or has expired. Enter your email again for a new one.', 'error'],
                 invalid:   ['Enter a valid email address.', 'error'],
                 challenge: ['Verification failed. Reload the page and try again.', 'error'],
                 error:     ['Signup failed. Try again in a few minutes.', 'error'],
@@ -251,7 +289,7 @@
 
                 const body = new FormData(form);
                 if (!body.get('cf-turnstile-response')) {
-                    show('Still running the verification check — try again in a moment.', 'error');
+                    show('Still running the verification check. Try again in a moment.', 'error');
                     return;
                 }
 
@@ -267,7 +305,7 @@
                     });
                     const data = await res.json();
                     if (data.ok) {
-                        show('Almost there — check your inbox to confirm your subscription.', 'ok');
+                        show('Almost there. Check your inbox to confirm your subscription.', 'ok');
                         form.reset();
                     } else {
                         show(data.message, 'error');
