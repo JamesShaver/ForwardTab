@@ -274,6 +274,7 @@
                 expired:   ['That confirmation link is invalid or has expired. Enter your email again for a new one.', 'error'],
                 invalid:   ['Enter a valid email address.', 'error'],
                 challenge: ['Verification failed. Reload the page and try again.', 'error'],
+                busy:      ['Too many signups from your network. Try again in a minute.', 'error'],
                 error:     ['Signup failed. Try again in a few minutes.', 'error'],
             };
             const status = new URLSearchParams(location.search).get('subscribe');

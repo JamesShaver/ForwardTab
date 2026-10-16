@@ -19,6 +19,12 @@ directory would be ignored. Routes are declared in `src/index.js`.
 2. Email is added to the Mailgun list as `subscribed=no` and a signed 48h confirm link is sent.
 3. `/api/confirm?token=…` flips the member to `subscribed=yes`.
 
+Abuse limits (each signup costs a Mailgun send):
+- **Per IP:** 5 signup requests a minute (`SUBSCRIBE_LIMITER`, the `ratelimits` binding in `wrangler.jsonc`),
+  else `429`. Counted per Cloudflare location, so approximate.
+- **Per address:** at most 3 confirmation emails a day, 10 minutes apart. The send times live on the Mailgun
+  member (`vars.confirm_sent`); a throttled request gets the same "check your inbox" answer and no email.
+
 ## Setup
 1. **Mailgun**: verify a sending domain, then create a mailing list (e.g. `updates@mg.forwardtab.org`) under Send → Mailing lists.
 2. **Turnstile**: widget already created — sitekey `0x4AAAAAAFNBVp8Pm_Ym2OVk`, embedded in `public/index.html` with action `signup`. Make sure the widget's domain list in the dashboard covers every hostname you serve from (plus `localhost` / `127.0.0.1` for local dev), then copy its secret into `TURNSTILE_SECRET`.
