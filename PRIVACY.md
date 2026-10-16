@@ -1,7 +1,7 @@
 # Privacy Policy — review copy
 
 Working copy for review. The **published** version is `public/privacy.html`, served at
-<https://trusttab.org/privacy>. Edit this file, hand the changes back, and they get applied
+<https://forwardtab.org/privacy>. Edit this file, hand the changes back, and they get applied
 to the HTML — the two are not generated from each other, so they drift unless kept in step.
 
 Headings below match the `<section>` blocks in the HTML one-for-one.
@@ -15,9 +15,9 @@ Last updated 4 October 2026
 
 ## Who we are
 
-Trust Tab is an Oregon nonprofit organization. This policy covers **trusttab.org**,
+Forward Tab is an Oregon nonprofit organization. This policy covers **forwardtab.org**,
 our pre-launch website. It describes the information that site collects and who it is shared
-with. Questions can go to info@trusttab.org.
+with. Questions can go to info@forwardtab.org.
 
 ## What we collect
 
@@ -33,11 +33,11 @@ We do not use advertising trackers, and we do not sell or rent your information 
 
 ## How we use your email address
 
-We use it to send you updates about Trust Tab's launch and local pilot programs, and nothing
+We use it to send you updates about Forward Tab's launch and local pilot programs, and nothing
 else. Signup is double opt-in: when you submit the form we add your address in an unconfirmed
 state and email you a confirmation link. You do not receive updates unless you click that link.
 Every email we send includes a one-click unsubscribe link, and you can also ask us to remove you
-at any time by writing to info@trusttab.org. We keep your address until you unsubscribe or ask us
+at any time by writing to info@forwardtab.org. We keep your address until you unsubscribe or ask us
 to delete it.
 
 ## Bot protection — Cloudflare Turnstile
@@ -74,7 +74,7 @@ delete the address we hold for you.
 
 ## Changes to this policy
 
-Trust Tab has not launched yet. As the platform goes live this policy will be revised, and the
+Forward Tab has not launched yet. As the platform goes live this policy will be revised, and the
 date at the top of this page will change to reflect that.
 
 ---
@@ -93,7 +93,7 @@ Points where I wrote from the code rather than from your intent — worth a deci
    removed in the October 2026 redesign. If you self-host the fonts, that bullet can be deleted
    outright.
 4. **Children's data.** No COPPA statement. Add one if under-13 signups are plausible.
-5. **Contact address.** Uses `info@trusttab.org`, taken from the site footer. Change it if
+5. **Contact address.** Uses `info@forwardtab.org`, taken from the site footer. Change it if
    privacy requests should go somewhere else.
 6. **No analytics claim.** I state there are no advertising trackers. That is true of the page as
    written today; revisit it if you ever add analytics.
