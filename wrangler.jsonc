@@ -1,7 +1,7 @@
 {
   // Static site + two API routes. public/ is served by the assets binding;
   // requests with no matching file fall through to src/index.js.
-  "name": "forward-tab",
+  "name": "forwardtab",
   "main": "src/index.js",
   "compatibility_date": "2026-10-01",
 
